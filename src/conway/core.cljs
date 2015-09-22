@@ -35,7 +35,7 @@
                          :else :dead)))]
       (reset! g-world new-world)
       (gui/draw ctx new-world))
-   1000))
+   150))
 
 (defn ^:export main []
   (let [canvas (.getElementById js/document "conway")
