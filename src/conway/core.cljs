@@ -1,56 +1,45 @@
 (ns conway.core
-  (:require [goog.object :as object]))
+  (:require [conway.gui :as gui]))
 
 (def columns 100)
 (def rows 100)
 
-(defonce cell-dimensions {:width 5 :height 5
-                          :spacing 7})
-
-(defn draw [ctx world]
-  (dotimes [x columns]
-    (dotimes [y rows]
-      (if (= :dead (get-in world [y x]))
-        (object/set ctx "fillStyle" "#eee")
-        (object/set ctx "fillStyle" "#c00"))
-      (.fillRect ctx
-                 (* x (:spacing cell-dimensions)) (* y (:spacing cell-dimensions))
-                 (:width cell-dimensions) (:height cell-dimensions)))))
-
 (defn build-world [world]
-  (into [] (map (partial into [])
-                (partition columns world))))
+  {:cells (into [] (map (partial into [])
+                        (partition columns world)))
+   :columns columns
+   :rows rows})
 
-(defn n [world x y] (get-in world [(dec y) x]))
-(defn ne [world x y] (get-in world [(dec y) (inc x)]))
-(defn e [world x y] (get-in world [y (inc x)]))
-(defn se [world x y] (get-in world [(inc y) (inc x)]))
-(defn s [world x y] (get-in world [(inc y) x]))
-(defn sw [world x y] (get-in world [(inc y) (dec x)]))
-(defn w [world x y] (get-in world [y (dec x)]))
-(defn nw [world x y] (get-in world [(dec y) (dec x)]))
+(defn n [world x y] (get-in (:cells world) [(dec y) x]))
+(defn ne [world x y] (get-in (:cells world) [(dec y) (inc x)]))
+(defn e [world x y] (get-in (:cells world) [y (inc x)]))
+(defn se [world x y] (get-in (:cells world) [(inc y) (inc x)]))
+(defn s [world x y] (get-in (:cells world) [(inc y) x]))
+(defn sw [world x y] (get-in (:cells world) [(inc y) (dec x)]))
+(defn w [world x y] (get-in (:cells world) [y (dec x)]))
+(defn nw [world x y] (get-in (:cells world) [(dec y) (dec x)]))
 
 (defn live-neighbors [world x y]
   (count (keep #{:live} ((juxt n ne e se s sw w nw) world x y))))
 
 (defn under-populated? [world x y]
-  (let [cell (get-in world [y x])]
+  (let [cell (get-in (:cells world) [y x])]
     (and (= :live cell)
          (< (live-neighbors world x y) 2))))
 
 (defn lives-on? [world x y]
-  (let [cell (get-in world [y x])]
+  (let [cell (get-in (:cells world) [y x])]
     (and (= :live cell)
          (or (= (live-neighbors world x y) 2)
              (= (live-neighbors world x y) 3)))))
 
 (defn over-crowded? [world x y]
-  (let [cell (get-in world [y x])]
+  (let [cell (get-in (:cells world) [y x])]
     (and (= :live cell)
          (> (live-neighbors world x y) 3))))
 
 (defn just-right? [world x y]
-  (let [cell (get-in world [y x])]
+  (let [cell (get-in (:cells world) [y x])]
     (and (= :dead cell)
          (= (live-neighbors world x y) 3))))
 
@@ -77,12 +66,12 @@
                          (just-right? world x y) :live
                          :else :dead)))]
       (reset! g-world new-world)
-      (draw ctx new-world))
+      (gui/draw ctx new-world))
    1000))
 
 (defn ^:export main []
   (let [canvas (.getElementById js/document "conway")
         ctx (.getContext canvas "2d")]
     (doto ctx
-      (draw @g-world)
+      (gui/draw @g-world)
       (generate))))
