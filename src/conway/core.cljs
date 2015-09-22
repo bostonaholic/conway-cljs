@@ -40,7 +40,7 @@
                        (rules/under-populated? old-world x y) :dead
                        (rules/lives-on? old-world x y) :live
                        (rules/over-crowded? old-world x y) :dead
-                       (rules/just-right? old-world x y) :live
+                       (rules/reproduce? old-world x y) :live
                        :else :dead)))]
     (reset! g-world new-world)
     (compute-diff old-world new-world)))

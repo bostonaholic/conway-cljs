@@ -28,7 +28,7 @@
     (and (= :live cell)
          (> (live-neighbors world x y) 3))))
 
-(defn just-right? [world x y]
+(defn reproduce? [world x y]
   (let [cell (get-in (:cells world) [y x])]
     (and (= :dead cell)
          (= (live-neighbors world x y) 3))))
