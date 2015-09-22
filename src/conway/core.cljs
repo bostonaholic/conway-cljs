@@ -86,5 +86,3 @@
     (doto ctx
       (draw @g-world)
       (generate))))
-
-(main)
