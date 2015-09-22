@@ -32,19 +32,19 @@
        {:x x :y y :state (get-in (:cells new-world) [y x])}))))
 
 (defn generate []
-  (let [world @g-world
+  (let [old-world @g-world
         new-world (build-world
                    (for [y (range rows)
                          x (range columns)]
                      (cond
-                       (rules/under-populated? world x y) :dead
-                       (rules/lives-on? world x y) :live
-                       (rules/over-crowded? world x y) :dead
-                       (rules/just-right? world x y) :live
+                       (rules/under-populated? old-world x y) :dead
+                       (rules/lives-on? old-world x y) :live
+                       (rules/over-crowded? old-world x y) :dead
+                       (rules/just-right? old-world x y) :live
                        :else :dead)))]
     (reset! g-world new-world)
-    (gui/draw (compute-diff world new-world))))
+    (compute-diff old-world new-world)))
 
 (defn ^:export main []
   (gui/draw (compute-diff @g-world))
-  (js/setInterval generate 150))
+  (js/setInterval (comp gui/draw generate) 150))
