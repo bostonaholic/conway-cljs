@@ -16,6 +16,8 @@
   (comp (serve :dir "target/")
         (watch)
         (reload :on-jsload 'conway.core/main)
-        (cljs :source-map true :optimizations :advanced)))
+        (cljs :source-map true :optimizations :none)))
 
-
+(deftask dist []
+  (set-env! :source-paths #{"src"})
+  (cljs :optimizations :advanced))
