@@ -62,9 +62,12 @@
        :live
        :dead))))
 
-(defn generate [ctx world]
-  (js/setTimeout
-   #(let [new-world (build-world
+(defonce g-world (atom seed-world))
+
+(defn generate [ctx]
+  (js/setInterval
+   #(let [world @g-world
+          new-world (build-world
                      (for [y (range rows)
                            x (range columns)]
                        (cond
@@ -73,6 +76,7 @@
                          (over-crowded? world x y) :dead
                          (just-right? world x y) :live
                          :else :dead)))]
+      (reset! g-world new-world)
       (draw ctx new-world))
    1000))
 
@@ -80,7 +84,7 @@
   (let [canvas (.getElementById js/document "conway")
         ctx (.getContext canvas "2d")]
     (doto ctx
-      (draw seed-world)
-      (generate seed-world))))
+      (draw @g-world)
+      (generate))))
 
 (main)
