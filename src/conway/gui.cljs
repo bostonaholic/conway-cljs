@@ -7,13 +7,13 @@
 (defn draw [diffs]
   (let [canvas (.getElementById js/document "conway")
         ctx (.getContext canvas "2d")]
-    (object/set ctx "fillStyle" "#eee")
+    (object/set ctx "fillStyle" "#FAFAFA")
     (doall (map (fn [diff]
                   (.fillRect ctx
                              (* (:x diff) (:spacing cell-dimensions)) (* (:y diff) (:spacing cell-dimensions))
                              (:width cell-dimensions) (:height cell-dimensions)))
                 (filter (fn [diff] (= :dead (:state diff))) diffs)))
-    (object/set ctx "fillStyle" "#c00")
+    (object/set ctx "fillStyle" "#008CBA")
     (doall (map (fn [diff]
                   (.fillRect ctx
                              (* (:x diff) (:spacing cell-dimensions)) (* (:y diff) (:spacing cell-dimensions))
