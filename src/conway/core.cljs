@@ -21,6 +21,11 @@
 (defonce g-world (atom seed-world))
 
 (defn compute-diff
+  "Takes two world objects as parameters and computes a 'diff'. This reduces the number of draws that need to occur on the canvas.
+
+  The 'diff' object is structured as such:
+
+  `[{:x 1 :y 2 :live} {:x 4 :y 7 :live} {:x 7 :y 2 :dead} {:x 9 :y 9 :live}]`"
   ([world]
    (compute-diff nil world))
   ([old-world new-world]
