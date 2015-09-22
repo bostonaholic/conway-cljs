@@ -5,11 +5,17 @@
                           :spacing 7})
 
 (defn draw [ctx world]
+  (object/set ctx "fillStyle" "#eee")
   (dotimes [x (:columns world)]
     (dotimes [y (:rows world)]
       (if (= :dead (get-in (:cells world) [y x]))
-        (object/set ctx "fillStyle" "#eee")
-        (object/set ctx "fillStyle" "#c00"))
-      (.fillRect ctx
-                 (* x (:spacing cell-dimensions)) (* y (:spacing cell-dimensions))
-                 (:width cell-dimensions) (:height cell-dimensions)))))
+        (.fillRect ctx
+                   (* x (:spacing cell-dimensions)) (* y (:spacing cell-dimensions))
+                   (:width cell-dimensions) (:height cell-dimensions)))))
+  (object/set ctx "fillStyle" "#c00")
+  (dotimes [x (:columns world)]
+    (dotimes [y (:rows world)]
+      (if (= :live (get-in (:cells world) [y x]))
+        (.fillRect ctx
+                   (* x (:spacing cell-dimensions)) (* y (:spacing cell-dimensions))
+                   (:width cell-dimensions) (:height cell-dimensions))))))
