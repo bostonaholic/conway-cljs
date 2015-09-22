@@ -1,5 +1,6 @@
 (ns conway.core
-  (:require [conway.gui :as gui]))
+  (:require [conway.gui :as gui]
+            [conway.rules :as rules]))
 
 (def columns 100)
 (def rows 100)
@@ -9,39 +10,6 @@
                         (partition columns world)))
    :columns columns
    :rows rows})
-
-(defn n [world x y] (get-in (:cells world) [(dec y) x]))
-(defn ne [world x y] (get-in (:cells world) [(dec y) (inc x)]))
-(defn e [world x y] (get-in (:cells world) [y (inc x)]))
-(defn se [world x y] (get-in (:cells world) [(inc y) (inc x)]))
-(defn s [world x y] (get-in (:cells world) [(inc y) x]))
-(defn sw [world x y] (get-in (:cells world) [(inc y) (dec x)]))
-(defn w [world x y] (get-in (:cells world) [y (dec x)]))
-(defn nw [world x y] (get-in (:cells world) [(dec y) (dec x)]))
-
-(defn live-neighbors [world x y]
-  (count (keep #{:live} ((juxt n ne e se s sw w nw) world x y))))
-
-(defn under-populated? [world x y]
-  (let [cell (get-in (:cells world) [y x])]
-    (and (= :live cell)
-         (< (live-neighbors world x y) 2))))
-
-(defn lives-on? [world x y]
-  (let [cell (get-in (:cells world) [y x])]
-    (and (= :live cell)
-         (or (= (live-neighbors world x y) 2)
-             (= (live-neighbors world x y) 3)))))
-
-(defn over-crowded? [world x y]
-  (let [cell (get-in (:cells world) [y x])]
-    (and (= :live cell)
-         (> (live-neighbors world x y) 3))))
-
-(defn just-right? [world x y]
-  (let [cell (get-in (:cells world) [y x])]
-    (and (= :dead cell)
-         (= (live-neighbors world x y) 3))))
 
 (defonce seed-world
   (build-world
@@ -60,10 +28,10 @@
                      (for [y (range rows)
                            x (range columns)]
                        (cond
-                         (under-populated? world x y) :dead
-                         (lives-on? world x y) :live
-                         (over-crowded? world x y) :dead
-                         (just-right? world x y) :live
+                         (rules/under-populated? world x y) :dead
+                         (rules/lives-on? world x y) :live
+                         (rules/over-crowded? world x y) :dead
+                         (rules/just-right? world x y) :live
                          :else :dead)))]
       (reset! g-world new-world)
       (gui/draw ctx new-world))
