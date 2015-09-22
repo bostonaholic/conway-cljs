@@ -21,6 +21,16 @@
 
 (defonce g-world (atom seed-world))
 
+(defn compute-diff
+  ([world]
+   (compute-diff nil world))
+  ([old-world new-world]
+   (for [y (range rows)
+         x (range columns)]
+     (when-not (= (get-in (:cells old-world) [y x])
+                  (get-in (:cells new-world) [y x]))
+       {:x x :y y :state (get-in (:cells new-world) [y x])}))))
+
 (defn generate [ctx]
   (js/setInterval
    #(let [world @g-world
@@ -34,12 +44,12 @@
                          (rules/just-right? world x y) :live
                          :else :dead)))]
       (reset! g-world new-world)
-      (gui/draw ctx new-world))
+      (gui/draw ctx (compute-diff world new-world)))
    150))
 
 (defn ^:export main []
   (let [canvas (.getElementById js/document "conway")
         ctx (.getContext canvas "2d")]
     (doto ctx
-      (gui/draw @g-world)
+      (gui/draw (compute-diff @g-world))
       (generate))))
