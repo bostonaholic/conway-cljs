@@ -5,9 +5,8 @@
 (def columns 100)
 (def rows 100)
 
-(defn build-world [world]
-  {:cells (into [] (map (partial into [])
-                        (partition columns world)))
+(defn build-world [cells]
+  {:cells (mapv vec (partition columns cells))
    :columns columns
    :rows rows})
 
