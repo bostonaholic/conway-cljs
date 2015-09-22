@@ -31,25 +31,20 @@
                   (get-in (:cells new-world) [y x]))
        {:x x :y y :state (get-in (:cells new-world) [y x])}))))
 
-(defn generate [ctx]
-  (js/setInterval
-   #(let [world @g-world
-          new-world (build-world
-                     (for [y (range rows)
-                           x (range columns)]
-                       (cond
-                         (rules/under-populated? world x y) :dead
-                         (rules/lives-on? world x y) :live
-                         (rules/over-crowded? world x y) :dead
-                         (rules/just-right? world x y) :live
-                         :else :dead)))]
-      (reset! g-world new-world)
-      (gui/draw ctx (compute-diff world new-world)))
-   150))
+(defn generate []
+  (let [world @g-world
+        new-world (build-world
+                   (for [y (range rows)
+                         x (range columns)]
+                     (cond
+                       (rules/under-populated? world x y) :dead
+                       (rules/lives-on? world x y) :live
+                       (rules/over-crowded? world x y) :dead
+                       (rules/just-right? world x y) :live
+                       :else :dead)))]
+    (reset! g-world new-world)
+    (gui/draw (compute-diff world new-world))))
 
 (defn ^:export main []
-  (let [canvas (.getElementById js/document "conway")
-        ctx (.getContext canvas "2d")]
-    (doto ctx
-      (gui/draw (compute-diff @g-world))
-      (generate))))
+  (gui/draw (compute-diff @g-world))
+  (js/setInterval generate 150))
