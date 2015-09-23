@@ -2,8 +2,8 @@
   (:require [conway.gui :as gui]
             [conway.rules :as rules]))
 
-(def columns 100)
-(def rows 100)
+(defonce columns (dec (Math/floor (/ (.-width gui/canvas) gui/cell-width))))
+(defonce rows (dec (Math/floor (/ (.-height gui/canvas) gui/cell-height))))
 
 (defn build-world [cells]
   {:cells (mapv vec (partition columns cells))
