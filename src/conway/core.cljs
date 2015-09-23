@@ -29,11 +29,11 @@
   ([world]
    (compute-diff nil world))
   ([old-world new-world]
-   (for [y (range rows)
-         x (range columns)]
-     (when-not (= (get-in (:cells old-world) [y x])
-                  (get-in (:cells new-world) [y x]))
-       {:x x :y y :state (get-in (:cells new-world) [y x])}))))
+   (remove nil? (for [y (range rows)
+                      x (range columns)]
+                  (when-not (= (get-in (:cells old-world) [y x])
+                               (get-in (:cells new-world) [y x]))
+                    {:x x :y y :state (get-in (:cells new-world) [y x])})))))
 
 (defn generate []
   (let [old-world @g-world
