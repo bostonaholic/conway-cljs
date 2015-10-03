@@ -6,9 +6,7 @@
 (defonce rows (dec (Math/floor (/ (.-height gui/canvas) gui/cell-height))))
 
 (defn build-world [cells]
-  {:cells (mapv vec (partition columns cells))
-   :columns columns
-   :rows rows})
+  (mapv vec (partition columns cells)))
 
 (defonce seed-world
   (build-world
@@ -31,9 +29,9 @@
   ([old-world new-world]
    (remove nil? (for [y (range rows)
                       x (range columns)]
-                  (when-not (= (get-in (:cells old-world) [y x])
-                               (get-in (:cells new-world) [y x]))
-                    {:x x :y y :state (get-in (:cells new-world) [y x])})))))
+                  (when-not (= (get-in old-world [y x])
+                               (get-in new-world [y x]))
+                    {:x x :y y :state (get-in new-world [y x])})))))
 
 (defn generate []
   (let [old-world @g-world
