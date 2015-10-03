@@ -15,7 +15,7 @@
        :live
        :dead))))
 
-(defonce world (atom seed-world))
+(def world (atom seed-world))
 
 (defn compute-diff
   "Takes two world objects as parameters and computes a 'diff'. This reduces the number of draws that need to occur on the canvas.
