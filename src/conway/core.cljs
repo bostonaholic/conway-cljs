@@ -25,7 +25,7 @@
 
   The 'diff' object is structured as such:
 
-  `[{:x 1 :y 2 :live} {:x 4 :y 7 :live} {:x 7 :y 2 :dead} {:x 9 :y 9 :live}]`"
+  `[{:x 1 :y 2 :state :live} {:x 4 :y 7 :state :live} {:x 7 :y 2 :state :dead} {:x 9 :y 9 :state :live}]`"
   ([world]
    (compute-diff nil world))
   ([old-world new-world]
