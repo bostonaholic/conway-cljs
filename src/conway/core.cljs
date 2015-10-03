@@ -10,8 +10,7 @@
 
 (defonce seed-world
   (build-world
-   (for [x (range columns)
-         y (range rows)]
+   (for [_ (range (* columns rows))]
      (if (zero? (rand-int 10))
        :live
        :dead))))
