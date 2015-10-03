@@ -32,3 +32,11 @@
   (let [cell (get-in world [y x])]
     (and (= :dead cell)
          (= (live-neighbors world x y) 3))))
+
+(defn live-or-die [world x y]
+  (cond
+    (under-populated? world x y) :dead
+    (lives-on? world x y) :live
+    (over-crowded? world x y) :dead
+    (reproduce? world x y) :live
+    :else :dead))

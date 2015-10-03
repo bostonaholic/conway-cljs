@@ -38,12 +38,7 @@
         new-world (build-world
                    (for [y (range rows)
                          x (range columns)]
-                     (cond
-                       (rules/under-populated? old-world x y) :dead
-                       (rules/lives-on? old-world x y) :live
-                       (rules/over-crowded? old-world x y) :dead
-                       (rules/reproduce? old-world x y) :live
-                       :else :dead)))]
+                     (rules/live-or-die old-world x y)))]
     (reset! g-world new-world)
     (compute-diff old-world new-world)))
 
