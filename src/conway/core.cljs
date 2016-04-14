@@ -41,6 +41,6 @@
     (reset! world new-world)
     (compute-diff old-world new-world)))
 
-(defn ^:export main []
+(defn main []
   (gui/draw (compute-diff @world))
   (js/setInterval (comp gui/draw generate) 150))
