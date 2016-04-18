@@ -41,6 +41,8 @@
     (reset! world new-world)
     (compute-diff old-world new-world)))
 
+(def evolve (comp gui/draw generate))
+
 (defn main []
   (gui/draw (compute-diff @world))
-  (js/setInterval (comp gui/draw generate) 150))
+  (js/setInterval evolve 150))
