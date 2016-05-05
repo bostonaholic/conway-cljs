@@ -1,11 +1,11 @@
 (set-env!
  :source-paths #{"src"}
  :resource-paths #{"html"}
- :dependencies '[[adzerk/boot-cljs "1.7.48-5" :scope "test"]
+ :dependencies '[[adzerk/boot-cljs "1.7.228-1" :scope "test"]
                  [adzerk/boot-reload "0.4.7" :scope "test"]
                  [pandeiro/boot-http "0.7.3" :scope "test"]
                  [org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.8.40"]])
+                 [org.clojure/clojurescript "1.8.51"]])
 
 (require
  '[adzerk.boot-cljs :refer [cljs]]
@@ -16,7 +16,7 @@
   (comp (serve :dir "target/")
         (watch)
         (reload :on-jsload 'conway.core/main)
-        (cljs :source-map true :optimizations :whitespace)))
+        (cljs)))
 
 (deftask dist []
   (cljs :optimizations :advanced))
