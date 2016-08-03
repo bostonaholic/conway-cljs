@@ -1,6 +1,19 @@
 (ns conway.gui)
 
-(defonce canvas (.getElementById js/document "conway"))
+(defn get-canvas []
+  (.getElementById js/document "conway"))
+
+(defn create-canvas []
+  (let [canvas (doto (.createElement js/document "canvas")
+                 (aset "id" "conway"))]
+    (when (.-body js/document)
+      (.appendChild (.-body js/document) canvas))
+    canvas))
+
+(defonce canvas (or (get-canvas)
+                    (create-canvas)))
+
+
 (defonce ctx (.getContext canvas "2d"))
 
 (defonce cell-width 5)
