@@ -14,4 +14,4 @@ dependencies:
     - "~/bin"
 test:
   override:
-    - boot test
+    - boot test-once

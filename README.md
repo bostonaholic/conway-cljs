@@ -18,7 +18,7 @@ visit http://localhost:3000
 
 Run the tests once with:
 
-`$ boot test`
+`$ boot test-once`
 
 Start the `test-auto` boot task with:
 
