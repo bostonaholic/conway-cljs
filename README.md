@@ -16,7 +16,6 @@ visit http://localhost:3000
 
 ## Testing
 
-Copyright 2015 Matthew Boston
 Run the tests once with:
 
 `$ boot test`
@@ -25,3 +24,4 @@ Start the `test-auto` boot task with:
 
 `$ boot test-auto`
 
+Copyright 2016 Matthew Boston
