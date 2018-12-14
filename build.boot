@@ -4,7 +4,7 @@
  :dependencies '[[adzerk/boot-cljs "2.1.5" :scope "test"]
                  [crisptrutski/boot-cljs-test "0.3.4" :scope "test"]
                  [pandeiro/boot-http "0.8.3" :scope "test"]
-                 [org.clojure/clojure "1.10.0-RC3"]
+                 [org.clojure/clojure "1.10.0-RC5"]
                  [org.clojure/clojurescript "1.10.439"]])
 
 (require
