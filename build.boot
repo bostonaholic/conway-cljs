@@ -31,4 +31,5 @@
         (cljs)))
 
 (deftask dist []
-  (cljs :optimizations :advanced))
+  (comp (cljs :optimizations :advanced)
+        (target)))
