@@ -1,3 +1,4 @@
 {:require  [conway.core]
  :init-fns [conway.core/main]
- :compiler-options {}}
+ :source-map true
+ :compiler-options {:verbose true}}
