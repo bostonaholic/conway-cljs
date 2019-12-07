@@ -43,3 +43,16 @@
     (over-crowded? world x y) :dead
     (reproduce? world x y) :live
     :else :dead))
+
+(defn dimensionalize
+  "TODO: make private or move. Should not be called publicly from conway.rules"
+  [cells columns]
+  (mapv vec (partition columns cells)))
+
+(defn generate [world]
+  (let [rows (count world)
+        columns (count (first world))]
+    (dimensionalize (for [y (range rows)
+                          x (range columns)]
+                      (live-or-die world x y))
+                    columns)))

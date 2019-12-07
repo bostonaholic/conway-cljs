@@ -5,15 +5,12 @@
 (defonce columns (dec (Math/floor (/ (.-width gui/canvas) (+ gui/cell-width gui/cell-border)))))
 (defonce rows (dec (Math/floor (/ (.-height gui/canvas) (+ gui/cell-height gui/cell-border)))))
 
-(defn build-world [cells]
-  (mapv vec (partition columns cells)))
-
 (defonce seed-world
-  (build-world
-   (for [_ (range (* columns rows))]
-     (if (zero? (rand-int 10))
-       :live
-       :dead))))
+  (rules/dimensionalize (for [_ (range (* columns rows))]
+                          (if (zero? (rand-int 10))
+                            :live
+                            :dead))
+                        columns))
 
 (def world (atom seed-world))
 
@@ -34,10 +31,7 @@
 
 (defn generate []
   (let [old-world @world
-        new-world (build-world
-                   (for [y (range rows)
-                         x (range columns)]
-                     (rules/live-or-die old-world x y)))]
+        new-world (rules/generate old-world)]
     (reset! world new-world)
     (compute-diff old-world new-world)))
 
