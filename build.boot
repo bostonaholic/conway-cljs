@@ -16,6 +16,8 @@
 
 (task-options! test-cljs {:js-env :phantom})
 
+(deftask deps [] identity)
+
 (deftask test-once []
   (merge-env! :source-paths #{"test"})
   (test-cljs))
