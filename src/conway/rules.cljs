@@ -9,8 +9,11 @@
 (defn w [world x y] (get-in world [y (dec x)]))
 (defn nw [world x y] (get-in world [(dec y) (dec x)]))
 
+(defn neighbors [world x y]
+  ((juxt n ne e se s sw w nw) world x y))
+
 (defn live-neighbors [world x y]
-  (count (keep #{:live} ((juxt n ne e se s sw w nw) world x y))))
+  (count (keep #{:live} (neighbors world x y))))
 
 (defn under-populated? [world x y]
   (let [cell (get-in world [y x])]
