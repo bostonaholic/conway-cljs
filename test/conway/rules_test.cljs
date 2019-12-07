@@ -42,3 +42,44 @@
                    [:dead :dead :dead]
                    [:dead :dead :dead]]]
         (is (= :live (rules/live-or-die world 1 1)))))))
+
+(deftest still-lifes-test
+  (testing "block"
+    (let [world [[:dead :dead :dead :dead]
+                 [:dead :live :live :dead]
+                 [:dead :live :live :dead]
+                 [:dead :dead :dead :dead]]]
+      (is (= world (rules/generate world)))))
+
+  (testing "beehive"
+    (let [world [[:dead :dead :dead :dead :dead :dead]
+                 [:dead :dead :live :live :dead :dead]
+                 [:dead :live :dead :dead :live :dead]
+                 [:dead :dead :live :live :dead :dead]
+                 [:dead :dead :dead :dead :dead :dead]]]
+      (is (= world (rules/generate world)))))
+
+  (testing "loaf"
+    (let [world [[:dead :dead :dead :dead :dead :dead]
+                 [:dead :dead :live :live :dead :dead]
+                 [:dead :live :dead :dead :live :dead]
+                 [:dead :dead :live :dead :live :dead]
+                 [:dead :dead :dead :live :dead :dead]
+                 [:dead :dead :dead :dead :dead :dead]]]
+      (is (= world (rules/generate world)))))
+
+  (testing "boat"
+    (let [world [[:dead :dead :dead :dead :dead]
+                 [:dead :live :live :dead :dead]
+                 [:dead :live :dead :live :dead]
+                 [:dead :dead :live :dead :dead]
+                 [:dead :dead :dead :dead :dead]]]
+      (is (= world (rules/generate world)))))
+
+  (testing "tub"
+    (let [world [[:dead :dead :dead :dead :dead]
+                 [:dead :dead :live :dead :dead]
+                 [:dead :live :dead :live :dead]
+                 [:dead :dead :live :dead :dead]
+                 [:dead :dead :dead :dead :dead]]]
+      (is (= world (rules/generate world))))))
