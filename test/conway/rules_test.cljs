@@ -195,3 +195,41 @@
   (testing "pentadecathlon"
     ;; TODO: 15 period oscillator :O
     ))
+
+(deftest spaceships-test
+  (testing "glider"
+    (let [period1 [[:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :live :dead :dead :dead]
+                   [:dead :live :live :live :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]]
+          period2 [[:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :live :dead :live :dead :dead :dead]
+                   [:dead :dead :live :live :dead :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]]
+          period3 [[:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :live :dead :dead :dead]
+                   [:dead :live :dead :live :dead :dead :dead]
+                   [:dead :dead :live :live :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]]
+          period4 [[:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :live :live :dead :dead]
+                   [:dead :dead :live :live :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]]
+          ;; NOTE: period5 is period 1 shifted down one, right one
+          period5 [[:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :live :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :dead :dead]
+                   [:dead :dead :live :live :live :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead]]]
+      (is (= period2 (rules/generate period1)))
+      (is (= period3 (rules/generate period2)))
+      (is (= period4 (rules/generate period3)))
+      (is (= period5 (rules/generate period4))))))
