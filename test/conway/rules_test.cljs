@@ -83,3 +83,115 @@
                  [:dead :dead :live :dead :dead]
                  [:dead :dead :dead :dead :dead]]]
       (is (= world (rules/generate world))))))
+
+(deftest oscillators-test
+  (testing "blinker"
+    (let [period1 [[:dead :dead :dead :dead :dead]
+                   [:dead :dead :live :dead :dead]
+                   [:dead :dead :live :dead :dead]
+                   [:dead :dead :live :dead :dead]
+                   [:dead :dead :dead :dead :dead]]
+
+          period2 [[:dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead]
+                   [:dead :live :live :live :dead]
+                   [:dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead]]]
+      (is (= period2 (rules/generate period1)))
+      (is (= period1 (rules/generate period2)))))
+
+  (testing "toad"
+    (let [period1 [[:dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :live :live :live :dead]
+                   [:dead :live :live :live :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead]]
+
+          period2 [[:dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :live :dead :dead]
+                   [:dead :live :dead :dead :live :dead]
+                   [:dead :live :dead :dead :live :dead]
+                   [:dead :dead :live :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead]]]
+      (is (= period2 (rules/generate period1)))
+      (is (= period1 (rules/generate period2)))))
+
+  (testing "beacon"
+    (let [period1 [[:dead :dead :dead :dead :dead :dead]
+                   [:dead :live :live :dead :dead :dead]
+                   [:dead :live :live :dead :dead :dead]
+                   [:dead :dead :dead :live :live :dead]
+                   [:dead :dead :dead :live :live :dead]
+                   [:dead :dead :dead :dead :dead :dead]]
+
+          period2 [[:dead :dead :dead :dead :dead :dead]
+                   [:dead :live :live :dead :dead :dead]
+                   [:dead :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :dead]
+                   [:dead :dead :dead :live :live :dead]
+                   [:dead :dead :dead :dead :dead :dead]]]
+      (is (= period2 (rules/generate period1)))
+      (is (= period1 (rules/generate period2)))))
+
+  (testing "pulsar"
+    (let [period1 [[:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :live :live :dead :dead :dead :live :live :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead :live :dead :live :dead :dead :dead :dead :live :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead :live :dead :live :dead :dead :dead :dead :live :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead :live :dead :live :dead :dead :dead :dead :live :dead :dead]
+                   [:dead :dead :dead :dead :live :live :live :dead :dead :dead :live :live :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :live :live :dead :dead :dead :live :live :live :dead :dead :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead :live :dead :live :dead :dead :dead :dead :live :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead :live :dead :live :dead :dead :dead :dead :live :dead :dead]
+                   [:dead :dead :live :dead :dead :dead :dead :live :dead :live :dead :dead :dead :dead :live :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :live :live :dead :dead :dead :live :live :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]]
+
+          period2 [[:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :live :dead :dead :dead :live :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :live :live :live :dead :dead :live :live :dead :live :live :dead :dead :live :live :live :dead]
+                   [:dead :dead :dead :live :dead :live :dead :live :dead :live :dead :live :dead :live :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :live :dead :dead :dead :live :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :live :dead :dead :dead :live :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :live :dead :live :dead :live :dead :live :dead :live :dead :live :dead :dead :dead]
+                   [:dead :live :live :live :dead :dead :live :live :dead :live :live :dead :dead :live :live :live :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :live :dead :dead :dead :live :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]]
+
+          period3 [[:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :live :dead :dead :dead :dead :dead :live :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :live :dead :dead :dead :live :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :live :dead :dead :live :dead :live :dead :live :dead :live :dead :dead :live :dead :dead]
+                   [:dead :dead :live :live :live :dead :live :live :dead :live :live :dead :live :live :live :dead :dead]
+                   [:dead :dead :dead :live :dead :live :dead :live :dead :live :dead :live :dead :live :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :live :live :dead :dead :dead :live :live :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :live :live :dead :dead :dead :live :live :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :live :dead :live :dead :live :dead :live :dead :live :dead :live :dead :dead :dead]
+                   [:dead :dead :live :live :live :dead :live :live :dead :live :live :dead :live :live :live :dead :dead]
+                   [:dead :dead :live :dead :dead :live :dead :live :dead :live :dead :live :dead :dead :live :dead :dead]
+                   [:dead :dead :dead :dead :dead :live :live :dead :dead :dead :live :live :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :live :live :dead :dead :dead :dead :dead :live :live :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]
+                   [:dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead :dead]]]
+      (is (= period2 (rules/generate period1)))
+      (is (= period3 (rules/generate period2)))
+      (is (= period1 (rules/generate period3)))))
+
+  (testing "pentadecathlon"
+    ;; TODO: 15 period oscillator :O
+    ))
