@@ -4,7 +4,7 @@
 
 (defonce seed-world
   (rules/dimensionalize (for [_ (range (* gui/columns gui/rows))]
-                          (if (zero? (rand-int 10))
+                          (if (zero? (rand-int 5))
                             :live
                             :dead))
                         gui/columns))
