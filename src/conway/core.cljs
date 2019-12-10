@@ -26,13 +26,13 @@
                                (get-in new-world [y x]))
                     {:x x :y y :state (get-in new-world [y x])})))))
 
-(defn generate []
+(defn generate-diff []
   (let [old-world @world
         new-world (rules/generate old-world)]
     (reset! world new-world)
     (compute-diff old-world new-world)))
 
-(def evolve (comp gui/draw generate))
+(def evolve (comp gui/draw generate-diff))
 
 (defn main []
   (gui/draw (compute-diff @world))
