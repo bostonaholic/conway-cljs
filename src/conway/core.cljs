@@ -2,15 +2,12 @@
   (:require [conway.gui :as gui]
             [conway.rules :as rules]))
 
-(defonce columns (dec (Math/floor (/ (.-width gui/canvas) (+ gui/cell-width gui/cell-border)))))
-(defonce rows (dec (Math/floor (/ (.-height gui/canvas) (+ gui/cell-height gui/cell-border)))))
-
 (defonce seed-world
-  (rules/dimensionalize (for [_ (range (* columns rows))]
+  (rules/dimensionalize (for [_ (range (* gui/columns gui/rows))]
                           (if (zero? (rand-int 10))
                             :live
                             :dead))
-                        columns))
+                        gui/columns))
 
 (def world (atom seed-world))
 
@@ -23,8 +20,8 @@
   ([new-world]
    (compute-diff nil new-world))
   ([old-world new-world]
-   (remove nil? (for [y (range rows)
-                      x (range columns)]
+   (remove nil? (for [y (range gui/rows)
+                      x (range gui/columns)]
                   (when-not (= (get-in old-world [y x])
                                (get-in new-world [y x]))
                     {:x x :y y :state (get-in new-world [y x])})))))

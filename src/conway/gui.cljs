@@ -39,5 +39,8 @@
     (draw-dead-cell ctx (* (:x diff) (+ cell-width cell-border)) (* (:y diff) (+ cell-height cell-border)))
     (draw-live-cell ctx (* (:x diff) (+ cell-width cell-border)) (* (:y diff) (+ cell-height cell-border)))))
 
+(defonce columns (dec (Math/floor (/ (.-width canvas) (+ cell-width cell-border)))))
+(defonce rows (dec (Math/floor (/ (.-height canvas) (+ cell-height cell-border)))))
+
 (defn draw [diffs]
   (doall (map draw-diff diffs)))
