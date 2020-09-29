@@ -232,4 +232,10 @@
       (is (= period2 (rules/generate period1)))
       (is (= period3 (rules/generate period2)))
       (is (= period4 (rules/generate period3)))
-      (is (= period5 (rules/generate period4))))))
+      (is (= period5 (rules/generate period4)))))
+
+  (testing "light-weight spaceship (LWSS)")
+
+  (testing "middle-weight spaceship (MWSS)")
+
+  (testing "heavy-weight spaceship (HWSS)"))
